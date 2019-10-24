@@ -6,28 +6,22 @@ TicTacToe::TicTacToe() : height(5), width(5), pieceTurn('O'), lastRow(0),lastCol
 		p.displayName = " ";
 		pieces.push_back(p);
 	}
-
 };
 
 ostream& operator << (ostream& out, const TicTacToe& tt) {
-
 	for (int row = tt.height - 1; row >= 0; row--) {
 		cout << row;
-		for (int col = 0; col < tt.height; col++) {
+		for (int col = 0; col < (int)tt.height; col++) {
 			int index = (tt.width * row) + col;
 			cout << tt.pieces[index].displayName + " ";
-		
 		}
 		cout << endl;
 	}
-
 	cout << " ";
-	for (int row = 0; row < tt.height; row++) {
+	for (int row = 0; row < (int)tt.height; row++) {
 		cout << row << " ";
-	
 	}
 	return out;
-
 };
 
 bool TicTacToe::done() {
@@ -39,13 +33,11 @@ bool TicTacToe::done() {
 			if (pieces[index].displayName == lastPiece) {
 				if (col == 3) {
 					return true;
-				}
-			
+				}		
 			}
 			else {
 				break;
 			}
-		
 		}	
 	}
 
@@ -63,27 +55,17 @@ bool TicTacToe::done() {
 		}
 	}
 
-
-	
-
+	// Checks the positions where it would form a diagnol and then checks to see if they are all equal to the lastPiece.
 	if (pieces[6].displayName == lastPiece && pieces[12].displayName == lastPiece && pieces[18].displayName == lastPiece) {
-		return true;
-	
+		return true;	
 	}
-
 	if (pieces[16].displayName == lastPiece && pieces[12].displayName == lastPiece && pieces[8].displayName == lastPiece) {
 		return true;
-
 	}
-
-
-
 	return false;
-
 }
 
 bool TicTacToe::draw() {
-
 	if (done()) {
 		return false;
 	}
@@ -99,7 +81,7 @@ bool TicTacToe::draw() {
 }
 
 int TicTacToe::prompt(unsigned int& r, unsigned int& c) {
-	cout << "Type coordinates in csv format to place a gamepiece or type quit to end the game " << endl;
+	cout << "Type coordinates in (x,y) format to place a gamepiece or type quit to end the game " << endl;
 	string input = "";
 	cin >> input;
 	if (input == "quit") {
@@ -107,9 +89,9 @@ int TicTacToe::prompt(unsigned int& r, unsigned int& c) {
 	}
 	else {
 		string nums = input.replace(1, 1, " ");
-		istringstream inputSS(nums);
-		if (inputSS >> r) {
-			if (inputSS >> c) {
+		istringstream stream(nums);
+		if (stream >> r) {
+			if (stream >> c) {
 				if (r < 4 && r > 0) {
 					if (c < 4 && c > 0) {
 						int index = (width * r) + c;
@@ -120,25 +102,29 @@ int TicTacToe::prompt(unsigned int& r, unsigned int& c) {
 				}
 			}
 		}
-			cout << "Invalid coordinates, please reenter" << endl;
-			return invalidCoordinates;
-
+		cout << "Invalid coordinates, please reenter" << endl;
+		return invalidCoordinates;
 	}
 }
 
 int TicTacToe::turn() {
-	string s = "";
-	s.push_back(pieceTurn);
-	cout << s + "\'s turn" << endl;
+	string piece = "";
+	piece.push_back(pieceTurn);
+	cout << piece + "\'s turn" << endl;
+
 	unsigned int r = 0;
 	unsigned int c = 0;
-	int res = prompt(r, c);
-	if (res == gameOver)
+	int game = prompt(r, c);
+
+	if (game == gameOver) {
 		return gameOver;
-	while (res != success && res != gameOver)
-	{
-		res = prompt(r, c);
 	}
+
+	while (game != success && game != gameOver)
+	{
+		game = prompt(r, c);
+	}
+
 	lastRow = r;
 	lastCol = c;
 	lastPiece = pieceTurn;
@@ -156,15 +142,13 @@ int TicTacToe::turn() {
 		oValidMoves += to_string(r) + ", " + to_string(c) + "; ";
 		cout << oValidMoves << endl;
 	}
-	return res;
-
-
+	return game;
 }
 
 int TicTacToe::play() {
 	cout << *this;
 	cout << endl;
-	int numTurns = 0;
+	int numOfTurns = 0;
 	while (!draw() && !done()) {
 		if (pieceTurn == 'X') {
 			pieceTurn = '0';
@@ -173,26 +157,23 @@ int TicTacToe::play() {
 		else {
 			pieceTurn = 'X';
 		}
-		numTurns++;
+		numOfTurns++;
 		int res = turn();
 		if (res == gameOver) {
-			string s = "";
-			s.push_back(pieceTurn);
-			cout << s + " quit the game in " + to_string(numTurns) + " turns!" << endl;
+			string piece = "";
+			piece.push_back(pieceTurn);
+			cout << piece + " quit the game in " + to_string(numOfTurns) + " turns!" << endl;
 			return res;
 		}
 	}
 	if (done()) {
-		string s = "";
-		s.push_back(pieceTurn);
-		cout << s + " won the game in " + to_string(numTurns) + " turns!" << endl;
+		string piece = "";
+		piece.push_back(pieceTurn);
+		cout << piece + " won the game in " + to_string(numOfTurns) + " turns!" << endl;
 	}
 	if (draw())
 	{
-		cout << "Draw in " + to_string(numTurns) + " turns!" << endl;
+		cout << "Draw in " + to_string(numOfTurns) + " turns!" << endl;
 	}
 	return success;
-
-
-
 }

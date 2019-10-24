@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int usageMessage(string pName, string otherInfo);
+int usageMessage(string programName, string info);
 
 enum status {
 	success = 0,

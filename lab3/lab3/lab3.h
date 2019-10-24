@@ -21,6 +21,7 @@ enum status {
 	couldNotReadLine = 4,
 	failedToFindFormedPiece = 5,
 	missMatchedBoard = 6
+
 };
 
 

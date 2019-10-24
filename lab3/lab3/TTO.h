@@ -21,9 +21,6 @@ private:
 	char pieceTurn;
 	string xValidMoves;
 	string oValidMoves;
-
-
-
 };
 
 ostream& operator << (ostream& out, const TicTacToe& tt);
