@@ -1,5 +1,7 @@
 Mustapha Barrie Lab 3
 
+One thing to note is that the rows are on the y axis and the columns are on the x axis so if you were to do the x,y coordinate system it would be (row, col) so something like 2,1 would not be the same as the standard 2,1 in a (col,row) implementation
+
 THe errors I had for the most part where files not being able to make functions or access structs from other files 
 because I forget to put them at the top of the header file including
 
