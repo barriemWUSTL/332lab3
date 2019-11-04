@@ -1,10 +1,12 @@
-Grader's name:
-grader's initials(used to mark comments in your code):
+Grader's name: Chengcheng Gan
+grader's initials(used to mark comments in your code): CG
 Grader's email:
 
-Grade: /100
+Grade: 96/100
 
 Deductions: 
+-3 Flipping the vertical and horizontal coordinates.
+-1 The program return zero when the user types in a invalid game name.
 The grader may leave comments throughout your graded code files. 
 Please search for the grader's initials above within you lab to find
 additional comments and feedback.
